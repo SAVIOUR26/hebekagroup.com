@@ -1,0 +1,32 @@
+name: Deploy to Hosting via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: FTP Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:       ${{ secrets.FTP_HOST }}
+          username:     ${{ secrets.FTP_USER }}
+          password:     ${{ secrets.FTP_PASSWORD }}
+          protocol:     ftps           # Use ftps (FTP over TLS) — more secure than plain ftp
+          port:         21
+          local-dir:    ./             # Root of the repo
+          server-dir:   /public_html/  # Adjust if your host uses /www/ or /htdocs/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            README.md
+            .github/**
