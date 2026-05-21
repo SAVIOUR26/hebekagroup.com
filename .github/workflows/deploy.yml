@@ -23,7 +23,7 @@ jobs:
           protocol:     ftps           # Use ftps (FTP over TLS) — more secure than plain ftp
           port:         21
           local-dir:    ./             # Root of the repo
-          server-dir:   /public_html/  # Adjust if your host uses /www/ or /htdocs/
+          server-dir:   /
           exclude: |
             **/.git*
             **/.git*/**
